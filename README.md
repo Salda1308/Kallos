@@ -1,38 +1,61 @@
 # Kallos
 
-A [Claude Code](https://claude.com/claude-code) skill that turns a brand brief and reference designs into new marketing graphics (posts, banners, stories, carousels) as pure SVG — fully editable in Adobe Illustrator.
+Generate on-brand marketing graphics with Claude Code — as SVG files that open 100% editable in Adobe Illustrator.
+
+Drop a brand brief and reference designs in a folder, tell Claude what you want (a post, a banner, a story, a 5-slide carousel), get an SVG back with real layers and real editable text — no outlined paths, no flattened artwork.
 
 ## What it does
 
-Given:
-- a brand brief (`.md` with hex colors, fonts, tone, company description)
-- reference design files (images, PDFs)
-- the copy/content you want to convey and the piece type
+- Reads a brand brief (`.md`: hex colors, fonts, tone, company description) as the single source of truth for palette and typography
+- Reads reference designs (images, PDFs) to match existing style and composition
+- Plans the content before touching pixels — splits a carousel into the right number of slides, or structures a single piece into headline / subhead / body / CTA
+- Outputs pure SVG with semantic `<g id="...">` layers (`Fondo`, `Graficos`, `Textos`, ...) so Illustrator shows organized layers on open
+- Keeps every piece of copy as a live `<text>` element — selectable and editable with Illustrator's Type tool, never outlined
+- Matches canvas size to the format: square post, story/reel, horizontal, or custom
 
-It plans the content (how to split a carousel into slides, or how to structure a single piece into headline/subhead/body/CTA), then generates an SVG with:
+## Setup prompt
 
-- Semantic `<g id="...">` layers (`Fondo`, `Graficos`, `Textos`, ...) so Illustrator shows organized layers
-- Real `<text>` elements — never outlined to paths, so text stays editable with Illustrator's Type tool
-- A `viewBox` matched to the target format (square post, story/reel, horizontal, or custom)
-- Colors and fonts taken strictly from the brand brief — nothing invented
+Paste into Claude Code (or any agent with filesystem access):
 
-See [SKILL.md](SKILL.md) for the full rules the skill follows.
+```
+Set up https://github.com/Salda1308/Kallos for me. Clone it into ~/.claude/skills/Kallos
+so the SKILL.md is picked up automatically. Then tell me it's ready and wait for me to
+point you at a brand brief and reference folder.
+```
 
-## Install
-
-Copy (or clone) this folder into your Claude Code skills directory:
+## Manual install
 
 ```bash
 git clone https://github.com/Salda1308/Kallos.git ~/.claude/skills/Kallos
 ```
 
-Claude Code picks up any `SKILL.md` under `~/.claude/skills/*` automatically.
+Claude Code loads any `SKILL.md` under `~/.claude/skills/*` automatically — no build step, no dependencies.
 
 ## Use
 
-In a Claude Code session, point it at your brand brief and reference folder and describe what you want (e.g. "genera un carrusel de 4 slides para el lanzamiento X, usando la carpeta de referencias"). The skill triggers automatically; no slash command needed.
+```bash
+cd /path/to/your/project
+claude
+```
+
+Then, in the session:
+
+```
+genera un carrusel de 4 slides para el lanzamiento X usando la carpeta de referencias y el brief de marca
+```
+
+Kallos reads the brief and references, plans the slides, and writes the SVGs straight to your working directory — no long explanations, no back-and-forth unless a color or font is genuinely missing from the brief.
 
 ## Output
 
-- Single piece: `nombre-descriptivo_YYYY-MM-DD.svg` in the current working directory.
-- Carousel: a subfolder `nombre-carrusel_YYYY-MM-DD/` with `slide-01.svg`, `slide-02.svg`, etc.
+- Single piece: `nombre-descriptivo_YYYY-MM-DD.svg` in the current working directory
+- Carousel: a subfolder `nombre-carrusel_YYYY-MM-DD/` with `slide-01.svg`, `slide-02.svg`, ...
+
+## Design principles
+
+- **The brief is the source of truth.** Colors and fonts come only from the brand `.md` — nothing invented.
+- **Text stays text.** Outlining to paths breaks editability; `<text>` is non-negotiable.
+- **Structure over flat art.** Semantic `<g>` layers are what make a file feel native to Illustrator instead of a flattened import.
+- **Ask only when blocked.** A missing color, font, or piece of content stops the skill to ask; everything else it decides on its own.
+
+See [SKILL.md](SKILL.md) for the full rules Claude follows.
