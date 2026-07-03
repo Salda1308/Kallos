@@ -23,13 +23,7 @@ so the SKILL.md is picked up automatically. Then tell me it's ready and wait for
 point you at a brand brief and reference folder.
 ```
 
-## Manual install
-
-```bash
-git clone https://github.com/Salda1308/Kallos.git ~/.claude/skills/Kallos
-```
-
-Claude Code loads any `SKILL.md` under `~/.claude/skills/*` automatically — no build step, no dependencies.
+Full install steps and first-use walkthrough: [install.md](install.md).
 
 ## Use
 
@@ -41,15 +35,15 @@ claude
 Then, in the session:
 
 ```
-genera un carrusel de 4 slides para el lanzamiento X usando la carpeta de referencias y el brief de marca
+genera un carrusel de 4 slides para el lanzamiento X
 ```
 
-Kallos reads the brief and references, plans the slides, and writes the SVGs straight to your working directory — no long explanations, no back-and-forth unless a color or font is genuinely missing from the brief.
+The first time you ask for a design in a project, Kallos scaffolds a `kallos/` folder (`brief.md` template, `referencias/`, `output/`) and asks you to fill in the brief. From then on it reads `kallos/brief.md` and `kallos/referencias/`, plans the slides, and writes the SVGs to `kallos/output/` — no long explanations, no back-and-forth unless a color or font is genuinely missing from the brief.
 
 ## Output
 
-- Single piece: `nombre-descriptivo_YYYY-MM-DD.svg` in the current working directory
-- Carousel: a subfolder `nombre-carrusel_YYYY-MM-DD/` with `slide-01.svg`, `slide-02.svg`, ...
+- Single piece: `kallos/output/nombre-descriptivo_YYYY-MM-DD.svg`
+- Carousel: `kallos/output/nombre-carrusel_YYYY-MM-DD/` with `slide-01.svg`, `slide-02.svg`, ...
 
 ## Design principles
 

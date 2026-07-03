@@ -12,13 +12,24 @@ Turns a brand brief plus reference designs into new marketing graphics as pure, 
 - User asks for a new post/banner/story/carousel as an SVG meant for Illustrator.
 - User has provided (now or earlier in the project) a brand brief and/or reference files to drive colors, typography, and style.
 
+## Project Structure
+Every project this skill works in has (or gets) a `kallos/` folder at its root:
+```
+kallos/
+  brief.md         # brand brief — colors, typography, tone, company info
+  referencias/      # reference designs the user drops in (images, PDFs)
+  output/          # generated SVGs land here
+```
+
+**Scaffolding:** if `kallos/` doesn't exist yet when asked to generate a design, create it: make `referencias/` and `output/` (empty), and copy `templates/brief.template.md` from this skill to `kallos/brief.md`. Then tell the user to fill it in before continuing — don't generate a design from an empty/template brief. If `kallos/brief.md` already exists, never overwrite it.
+
 ## Inputs
-1. **Brand brief** — a `.md` with hex colors, font names, tone/voice, company description. Single source of truth for palette and typography — never invent colors or fonts outside it. If a needed color or font is missing, stop and ask; never guess.
-2. **Reference files** — prior designs as images (PNG/JPG) or PDFs. `.ai`/`.eps` files are binary and can't be parsed directly — if that's all that exists, ask for a PNG/PDF/SVG export, or proceed from the brief plus any readable refs.
+1. **Brand brief** (`kallos/brief.md`) — hex colors, font names, tone/voice, company description, logo/assets path, do's and don'ts. Single source of truth for palette and typography — never invent colors or fonts outside it. If a needed color or font is missing, stop and ask; never guess.
+2. **Reference files** (`kallos/referencias/`) — prior designs as images (PNG/JPG) or PDFs. `.ai`/`.eps` files are binary and can't be parsed directly — if that's all that exists, ask for a PNG/PDF/SVG export, or proceed from the brief plus any readable refs.
 3. **Raw content** — the copy the user wants to convey, plus the piece type (single post, banner, story, carousel).
 
 ## Process
-1. Read the brand brief and any reference files.
+1. Ensure `kallos/` exists (see Project Structure); read `brief.md` and any files in `referencias/`.
 2. Plan content before touching SVG:
    - Carousel → decide how many slides and what text goes on each.
    - Single piece → break the copy into hierarchy (headline / subhead / body / CTA).
@@ -34,8 +45,8 @@ Turns a brand brief plus reference designs into new marketing graphics as pure, 
 - Colors and fonts strictly from the brief and references — no invented palette.
 
 ## File Naming
-- Single piece: `nombre-descriptivo_YYYY-MM-DD.svg` saved directly in the current working directory.
-- Carousel: subfolder `nombre-carrusel_YYYY-MM-DD/` containing `slide-01.svg`, `slide-02.svg`, etc.
+- Single piece: `kallos/output/nombre-descriptivo_YYYY-MM-DD.svg`.
+- Carousel: `kallos/output/nombre-carrusel_YYYY-MM-DD/` containing `slide-01.svg`, `slide-02.svg`, etc.
 
 ## Behavior
 Zero chatter. No long explanations or redundant confirmations — analyze, code, save. Only ask when critical info (color, font, content) is genuinely missing.
