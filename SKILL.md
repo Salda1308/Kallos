@@ -1,9 +1,9 @@
 ---
-name: svg-illustrator-designer
+name: Kallos
 description: Use when generating a new marketing graphic (single post, banner, story, or carousel) as an SVG that must open fully editable in Adobe Illustrator, driven by a brand brief (.md with colors/fonts/tone) and reference design files.
 ---
 
-# SVG Illustrator Designer
+# Kallos
 
 ## Overview
 Turns a brand brief plus reference designs into new marketing graphics as pure, semantic SVG that opens fully editable in Adobe Illustrator — layers as `<g>` groups, text as live `<text>` (never outlined to paths).

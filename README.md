@@ -1,4 +1,4 @@
-# svg-illustrator-designer
+# Kallos
 
 A [Claude Code](https://claude.com/claude-code) skill that turns a brand brief and reference designs into new marketing graphics (posts, banners, stories, carousels) as pure SVG — fully editable in Adobe Illustrator.
 
@@ -23,7 +23,7 @@ See [SKILL.md](SKILL.md) for the full rules the skill follows.
 Copy (or clone) this folder into your Claude Code skills directory:
 
 ```bash
-git clone <this-repo-url> ~/.claude/skills/svg-illustrator-designer
+git clone https://github.com/Salda1308/Kallos.git ~/.claude/skills/Kallos
 ```
 
 Claude Code picks up any `SKILL.md` under `~/.claude/skills/*` automatically.
