@@ -19,7 +19,8 @@ Paste into Claude Code (or any agent with filesystem access):
 
 ```
 Set up https://github.com/Salda1308/Kallos for me. Clone it into ~/.claude/skills/Kallos
-so the SKILL.md is picked up automatically. Then tell me it's ready and wait for me to
+so the SKILL.md is picked up automatically, and symlink commands/kallos.md into
+~/.claude/commands/ so /kallos works. Then tell me it's ready and wait for me to
 point you at a brand brief and reference folder.
 ```
 
@@ -32,13 +33,15 @@ cd /path/to/your/project
 claude
 ```
 
-Then, in the session:
+Run `/kallos` to initialize the project — it scaffolds a `kallos/` folder (`brief.md` template, `referencias/`, `output/`) if missing, or reports its current status if it already exists. It never generates a design itself.
+
+Then, in the session, ask for the design directly:
 
 ```
 genera un carrusel de 4 slides para el lanzamiento X
 ```
 
-The first time you ask for a design in a project, Kallos scaffolds a `kallos/` folder (`brief.md` template, `referencias/`, `output/`) and asks you to fill in the brief. From then on it reads `kallos/brief.md` and `kallos/referencias/`, plans the slides, and writes the SVGs to `kallos/output/` — no long explanations, no back-and-forth unless a color or font is genuinely missing from the brief.
+Kallos reads `kallos/brief.md` and `kallos/referencias/`, plans the slides, and writes the SVGs to `kallos/output/` — no long explanations, no back-and-forth unless a color or font is genuinely missing from the brief.
 
 ## Output
 

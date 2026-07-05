@@ -21,7 +21,7 @@ kallos/
   output/          # generated SVGs land here
 ```
 
-**Scaffolding:** if `kallos/` doesn't exist yet when asked to generate a design, create it: make `referencias/` and `output/` (empty), and copy `templates/brief.template.md` from this skill to `kallos/brief.md`. Then tell the user to fill it in before continuing — don't generate a design from an empty/template brief. If `kallos/brief.md` already exists, never overwrite it.
+**Scaffolding:** if `kallos/` doesn't exist yet when asked to generate a design, create it: make `referencias/` and `output/` (empty), and copy `templates/brief.template.md` from this skill to `kallos/brief.md`. Then tell the user to fill it in before continuing — don't generate a design from an empty/template brief. If `kallos/brief.md` already exists, never overwrite it. The `/kallos` command (`commands/kallos.md`) runs this same scaffolding/status-check on demand, without generating a design.
 
 ## Inputs
 1. **Brand brief** (`kallos/brief.md`) — hex colors, font names, tone/voice, company description, logo/assets path, do's and don'ts. Single source of truth for palette and typography — never invent colors or fonts outside it. If a needed color or font is missing, stop and ask; never guess.

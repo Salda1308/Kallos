@@ -14,9 +14,11 @@ point you at a brand brief and reference folder.
 
 ```bash
 git clone https://github.com/Salda1308/Kallos.git ~/.claude/skills/Kallos
+mkdir -p ~/.claude/commands
+ln -sfn ~/.claude/skills/Kallos/commands/kallos.md ~/.claude/commands/kallos.md
 ```
 
-Claude Code loads any `SKILL.md` under `~/.claude/skills/*` automatically — no build step, no dependencies.
+Claude Code loads any `SKILL.md` under `~/.claude/skills/*` automatically — no build step, no dependencies. The symlink registers `/kallos` as a slash command.
 
 ## First use in a project
 
@@ -25,7 +27,9 @@ cd /path/to/your/project
 claude
 ```
 
-Then ask for a design, e.g.:
+Run `/kallos` to initialize — it creates the `kallos/` folder if missing, or reports its current status (brief filled in? references present? pieces already generated?) if it already exists. It never generates a design itself.
+
+Alternatively, just ask for a design directly, e.g.:
 
 ```
 genera un post para el lanzamiento X
