@@ -42,12 +42,17 @@ If this is the first design in this project, Kallos creates a `kallos/` folder w
 
 ```
 kallos/
-  brief.md         # copied from the brief template — fill this in
-  referencias/      # drop reference designs here (images, PDFs)
-  output/          # generated SVGs land here
+  brief.md                    # copied from the brief template — fill this in
+  output/                     # generated SVGs land here
+  referencias/
+    designs/                  # reference designs, organized by piece type (created on demand)
+    assets/
+      img/                    # supporting images
+      logo/                   # brand logo files
+      contenido/              # raw content/copy sources — you create the subfolders
 ```
 
-Fill in `kallos/brief.md` (colors, typography, tone, company info, logo path, do's/don'ts) and drop any reference designs into `kallos/referencias/`, then ask again. Kallos never overwrites an existing `brief.md`.
+Fill in `kallos/brief.md` (colors, typography, tone, company info, logo path, do's/don'ts), drop logo/images into `kallos/referencias/assets/`, and organize reference designs by type under `kallos/referencias/designs/` (e.g. `posters/`, `carruseles/{portada,internas,final}/`), then ask again. Kallos never overwrites an existing `brief.md`.
 
 ## Regular use
 
@@ -55,4 +60,4 @@ Fill in `kallos/brief.md` (colors, typography, tone, company info, logo path, do
 genera un carrusel de 4 slides para el lanzamiento X
 ```
 
-Kallos reads `kallos/brief.md` and `kallos/referencias/`, plans the slides, and writes the SVGs to `kallos/output/` — no long explanations, no back-and-forth unless a color or font is genuinely missing from the brief.
+Kallos reads `kallos/brief.md` and the matching `kallos/referencias/designs/<tipo>/` folder, plans the slides, and writes the SVGs to `kallos/output/` — no long explanations, no back-and-forth unless a color or font is genuinely missing from the brief.

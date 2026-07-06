@@ -39,7 +39,7 @@ Same as kallos-contentGen:
 - `viewBox="0 0 W H"` matching the source image's proportions (or the piece type if known).
 
 ## Handoff to kallos-contentGen
-This skill never writes into `kallos/referencias/` on its own. Once you like a generated template, copy it there yourself — that's the deliberate curation step that decides what becomes real reference material.
+This skill never writes into `kallos/referencias/` on its own. Once you like a generated template, copy it there yourself, into `kallos/referencias/designs/<tipo>/` (e.g. `posters/`, or `carruseles/{portada,internas,final}/`) matching its piece type — creating that subfolder if it doesn't exist yet. That's the deliberate curation step that decides what becomes real reference material.
 
 ## Common Mistakes
 - Outlining text to paths — breaks editability; keep `<text>`.

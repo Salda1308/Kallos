@@ -16,25 +16,36 @@ Turns a brand brief plus reference designs into new marketing graphics as pure, 
 Every project this skill works in has (or gets) a `kallos/` folder at its root:
 ```
 kallos/
-  brief.md         # brand brief — colors, typography, tone, company info
-  referencias/      # reference designs the user drops in (images, PDFs)
-  output/          # generated SVGs land here
+  brief.md                    # brand brief — colors, typography, tone, company info
+  output/                     # generated SVGs land here
+  referencias/
+    designs/
+      carruseles/
+        portada/              # cover-slide references
+        internas/             # inner-slide references
+        final/                # closing-slide references
+      posters/                # and any other piece type (banners/, stories/...), created on demand
+    assets/
+      img/                    # supporting images to embed in designs
+      logo/                   # brand logo files
+      contenido/              # raw content/copy sources — subfolders created by the user, one per project/topic
 ```
 
-**Scaffolding:** if `kallos/` doesn't exist yet when asked to generate a design, create it: make `referencias/` and `output/` (empty), and copy `templates/brief.template.md` from this skill to `kallos/brief.md`. Then tell the user to fill it in before continuing — don't generate a design from an empty/template brief. If `kallos/brief.md` already exists, never overwrite it. The `/kallos-content` command (`commands/kallos-content.md`) runs this same scaffolding/status-check on demand, without generating a design.
+**Scaffolding:** if `kallos/` doesn't exist yet when asked to generate a design, create it: `output/`, `referencias/assets/img/`, `referencias/assets/logo/`, `referencias/assets/contenido/` (all empty), and copy `templates/brief.template.md` from this skill to `kallos/brief.md`. Then tell the user to fill it in before continuing — don't generate a design from an empty/template brief. If `kallos/brief.md` already exists, never overwrite it. Do **not** pre-create `referencias/designs/<tipo>/` subfolders — those are created only the first time a piece of that type is generated or saved as a reference (see How References Are Used). The `/kallos-content` command (`commands/kallos-content.md`) runs this same scaffolding/status-check on demand, without generating a design.
 
 ## Inputs
 1. **Brand brief** (`kallos/brief.md`) — hex colors, font names, tone/voice, company description, logo/assets path, do's and don'ts. Single source of truth for palette and typography — never invent colors or fonts outside it. If a needed color or font is missing, stop and ask; never guess.
-2. **Reference files** (`kallos/referencias/`) — prior designs as images (PNG/JPG) or PDFs. `.ai`/`.eps` files are binary and can't be parsed directly — if that's all that exists, ask for a PNG/PDF/SVG export, or proceed from the brief plus any readable refs.
-3. **Raw content** — the copy the user wants to convey, plus the piece type (single post, banner, story, carousel).
+2. **Reference designs** (`kallos/referencias/designs/<tipo>/`) — prior designs as images (PNG/JPG) or PDFs, organized by piece type (e.g. `posters/`, `banners/`, or `carruseles/{portada,internas,final}/`). `.ai`/`.eps` files are binary and can't be parsed directly — if that's all that exists, ask for a PNG/PDF/SVG export, or proceed from the brief plus any readable refs.
+3. **Supporting assets** (`kallos/referencias/assets/`) — `img/` and `logo/` for material to embed in a design; `contenido/<subfolder>/` for raw copy/content the user has organized by project or topic — if the user names a subfolder, read content from there.
+4. **Raw content** — alternatively, the copy the user wants to convey pasted directly, plus the piece type (single post, banner, story, carousel).
 
 ## How References Are Used
-- **Default: inspiration, not a template.** Read all files in `referencias/` for palette, typography, tone, and composition patterns, then design a new, original layout for the requested piece. Never clone a reference's exact layout unless asked.
+- **Default: inspiration, not a template.** Read the files in `referencias/designs/<tipo>/` matching the requested piece type for palette, typography, tone, and composition patterns, then design a new, original layout. Never clone a reference's exact layout unless asked.
 - **Literal template — only on explicit request.** If the user names a specific reference and asks to use it as a base (e.g. "usa el diseño X de referencias como base"), replicate that layout's structure and only swap in the new copy, colors, and assets.
-- **Feeding the library — only on explicit request.** After generating a piece, only copy it into `kallos/referencias/` (in addition to `kallos/output/`) if the user asks to save it as a future reference (e.g. "guarda este como referencia"). Never do this by default.
+- **Feeding the library — only on explicit request.** After generating a piece, only copy it into `referencias/designs/<tipo>/` (creating that subfolder, and its `portada`/`internas`/`final` split for carousels, if it doesn't exist yet) if the user asks to save it as a future reference (e.g. "guarda este como referencia"). Never do this by default.
 
 ## Process
-1. Ensure `kallos/` exists (see Project Structure); read `brief.md` and any files in `referencias/`.
+1. Ensure `kallos/` exists (see Project Structure); read `brief.md`, the relevant `referencias/designs/<tipo>/` folder, and `referencias/assets/`.
 2. Plan content before touching SVG:
    - Carousel → decide how many slides and what text goes on each.
    - Single piece → break the copy into hierarchy (headline / subhead / body / CTA).
