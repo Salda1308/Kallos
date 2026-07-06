@@ -28,6 +28,11 @@ kallos/
 2. **Reference files** (`kallos/referencias/`) — prior designs as images (PNG/JPG) or PDFs. `.ai`/`.eps` files are binary and can't be parsed directly — if that's all that exists, ask for a PNG/PDF/SVG export, or proceed from the brief plus any readable refs.
 3. **Raw content** — the copy the user wants to convey, plus the piece type (single post, banner, story, carousel).
 
+## How References Are Used
+- **Default: inspiration, not a template.** Read all files in `referencias/` for palette, typography, tone, and composition patterns, then design a new, original layout for the requested piece. Never clone a reference's exact layout unless asked.
+- **Literal template — only on explicit request.** If the user names a specific reference and asks to use it as a base (e.g. "usa el diseño X de referencias como base"), replicate that layout's structure and only swap in the new copy, colors, and assets.
+- **Feeding the library — only on explicit request.** After generating a piece, only copy it into `kallos/referencias/` (in addition to `kallos/output/`) if the user asks to save it as a future reference (e.g. "guarda este como referencia"). Never do this by default.
+
 ## Process
 1. Ensure `kallos/` exists (see Project Structure); read `brief.md` and any files in `referencias/`.
 2. Plan content before touching SVG:
