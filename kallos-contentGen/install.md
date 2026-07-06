@@ -5,20 +5,23 @@
 Paste into Claude Code (or any agent with filesystem access):
 
 ```
-Set up https://github.com/Salda1308/Kallos for me. Clone it into ~/.claude/skills/Kallos
-so the SKILL.md is picked up automatically. Then tell me it's ready and wait for me to
-point you at a brand brief and reference folder.
+Set up https://github.com/Salda1308/Kallos for me. Clone it into ~/.claude/skills/Kallos,
+then symlink kallos-contentGen/ into ~/.claude/skills/kallos-contentGen and
+kallos-contentGen/commands/kallos-content.md into ~/.claude/commands/ so /kallos-content
+works. Then tell me it's ready and wait for me to point you at a brand brief and
+reference folder.
 ```
 
 ## Manual install
 
 ```bash
 git clone https://github.com/Salda1308/Kallos.git ~/.claude/skills/Kallos
+ln -sfn ~/.claude/skills/Kallos/kallos-contentGen ~/.claude/skills/kallos-contentGen
 mkdir -p ~/.claude/commands
-ln -sfn ~/.claude/skills/Kallos/commands/kallos.md ~/.claude/commands/kallos.md
+ln -sfn ~/.claude/skills/Kallos/kallos-contentGen/commands/kallos-content.md ~/.claude/commands/kallos-content.md
 ```
 
-Claude Code loads any `SKILL.md` under `~/.claude/skills/*` automatically — no build step, no dependencies. The symlink registers `/kallos` as a slash command.
+Claude Code loads any `SKILL.md` under `~/.claude/skills/*` automatically — no build step, no dependencies. The symlink registers `/kallos-content` as a slash command.
 
 ## First use in a project
 
@@ -27,7 +30,7 @@ cd /path/to/your/project
 claude
 ```
 
-Run `/kallos` to initialize — it creates the `kallos/` folder if missing, or reports its current status (brief filled in? references present? pieces already generated?) if it already exists. It never generates a design itself.
+Run `/kallos-content` to initialize — it creates the `kallos/` folder if missing, or reports its current status (brief filled in? references present? pieces already generated?) if it already exists. It never generates a design itself.
 
 Alternatively, just ask for a design directly, e.g.:
 

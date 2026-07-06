@@ -1,58 +1,27 @@
 # Kallos
 
-Generate on-brand marketing graphics with Claude Code — as SVG files that open 100% editable in Adobe Illustrator.
+A family of [Claude Code](https://claude.com/claude-code) skills for going from brand identity to on-brand marketing graphics — as SVG files that stay 100% editable in Adobe Illustrator.
 
-Drop a brand brief and reference designs in a folder, tell Claude what you want (a post, a banner, a story, a 5-slide carousel), get an SVG back with real layers and real editable text — no outlined paths, no flattened artwork.
+## Skills in this repo
 
-## What it does
+- **[kallos-contentGen](kallos-contentGen/README.md)** — generates new posts, banners, stories, and carousels from a brand brief and reference designs.
+- **[kallos-templateGen](kallos-templateGen/README.md)** — converts flat JPG designs (old exports, things found online) into editable SVG templates, to feed kallos-contentGen's reference library.
 
-- Reads a brand brief (`.md`: hex colors, fonts, tone, company description) as the single source of truth for palette and typography
-- Reads reference designs (images, PDFs) to match existing style and composition
-- Plans the content before touching pixels — splits a carousel into the right number of slides, or structures a single piece into headline / subhead / body / CTA
-- Outputs pure SVG with semantic `<g id="...">` layers (`Fondo`, `Graficos`, `Textos`, ...) so Illustrator shows organized layers on open
-- Keeps every piece of copy as a live `<text>` element — selectable and editable with Illustrator's Type tool, never outlined
-- Matches canvas size to the format: square post, story/reel, horizontal, or custom
+Each skill is self-contained: its own `SKILL.md`, its own slash command, its own README. Install the ones you need.
 
-## Setup prompt
-
-Paste into Claude Code (or any agent with filesystem access):
-
-```
-Set up https://github.com/Salda1308/Kallos for me. Clone it into ~/.claude/skills/Kallos
-so the SKILL.md is picked up automatically, and symlink commands/kallos.md into
-~/.claude/commands/ so /kallos works. Then tell me it's ready and wait for me to
-point you at a brand brief and reference folder.
-```
-
-Full install steps and first-use walkthrough: [install.md](install.md).
-
-## Use
+## Install everything
 
 ```bash
-cd /path/to/your/project
-claude
+git clone https://github.com/Salda1308/Kallos.git ~/.claude/skills/Kallos
+ln -sfn ~/.claude/skills/Kallos/kallos-contentGen ~/.claude/skills/kallos-contentGen
+ln -sfn ~/.claude/skills/Kallos/kallos-templateGen ~/.claude/skills/kallos-templateGen
+mkdir -p ~/.claude/commands
+ln -sfn ~/.claude/skills/Kallos/kallos-contentGen/commands/kallos-content.md ~/.claude/commands/kallos-content.md
+ln -sfn ~/.claude/skills/Kallos/kallos-templateGen/commands/kallos-templates.md ~/.claude/commands/kallos-templates.md
 ```
 
-Run `/kallos` to initialize the project — it scaffolds a `kallos/` folder (`brief.md` template, `referencias/`, `output/`) if missing, or reports its current status if it already exists. It never generates a design itself.
+See each skill's own README/install.md for setup prompts and detailed usage.
 
-Then, in the session, ask for the design directly:
+## License
 
-```
-genera un carrusel de 4 slides para el lanzamiento X
-```
-
-Kallos reads `kallos/brief.md` and `kallos/referencias/`, plans the slides, and writes the SVGs to `kallos/output/` — no long explanations, no back-and-forth unless a color or font is genuinely missing from the brief.
-
-## Output
-
-- Single piece: `kallos/output/nombre-descriptivo_YYYY-MM-DD.svg`
-- Carousel: `kallos/output/nombre-carrusel_YYYY-MM-DD/` with `slide-01.svg`, `slide-02.svg`, ...
-
-## Design principles
-
-- **The brief is the source of truth.** Colors and fonts come only from the brand `.md` — nothing invented.
-- **Text stays text.** Outlining to paths breaks editability; `<text>` is non-negotiable.
-- **Structure over flat art.** Semantic `<g>` layers are what make a file feel native to Illustrator instead of a flattened import.
-- **Ask only when blocked.** A missing color, font, or piece of content stops the skill to ask; everything else it decides on its own.
-
-See [SKILL.md](SKILL.md) for the full rules Claude follows.
+MIT — see [LICENSE](LICENSE).
