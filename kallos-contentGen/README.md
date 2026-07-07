@@ -12,6 +12,7 @@ Drop a brand brief and reference designs in a folder, tell Claude what you want 
 - Outputs pure SVG with semantic `<g id="...">` layers (`Fondo`, `Graficos`, `Textos`, ...) so Illustrator shows organized layers on open
 - Keeps every piece of copy as a live `<text>` element — selectable and editable with Illustrator's Type tool, never outlined
 - Matches canvas size to the format: square post, story/reel, horizontal, or custom
+- When a reference design has a photo slot, fills it from your own `referencias/assets/img/`, or falls back to a Pexels search (needs a free API key — see below)
 
 ## Setup prompt
 
@@ -48,6 +49,10 @@ Kallos reads `kallos/brief.md` and `kallos/referencias/`, plans the slides, and 
 
 - Single piece: `kallos/output/nombre-descriptivo_YYYY-MM-DD.svg`
 - Carousel: `kallos/output/nombre-carrusel_YYYY-MM-DD/` with `slide-01.svg`, `slide-02.svg`, ...
+
+## Photos (optional)
+
+If a reference design has a photo slot, Kallos fills it — your own images from `referencias/assets/img/` first, Pexels as a fallback. Pexels needs a free API key ([pexels.com/api](https://www.pexels.com/api/)) in `kallos/.env` (`PEXELS_API_KEY=...`), created empty on init and already gitignored. No key, no Pexels fallback — local images still work.
 
 ## Design principles
 

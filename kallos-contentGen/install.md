@@ -47,12 +47,14 @@ kallos/
   referencias/
     designs/                  # reference designs, organized by piece type (created on demand)
     assets/
-      img/                    # supporting images
+      img/                    # your own images
+        pexels/               # photos fetched from Pexels land here automatically
       logo/                   # brand logo files
       contenido/              # raw content/copy sources — you create the subfolders
+  .env                        # PEXELS_API_KEY — fill in only if you want the Pexels fallback
 ```
 
-Fill in `kallos/brief.md` (colors, typography, tone, company info, logo path, do's/don'ts), drop logo/images into `kallos/referencias/assets/`, and organize reference designs by type under `kallos/referencias/designs/` (e.g. `posters/`, `carruseles/{portada,internas,final}/`), then ask again. Kallos never overwrites an existing `brief.md`.
+Fill in `kallos/brief.md` (colors, typography, tone, company info, logo path, do's/don'ts), drop logo/images into `kallos/referencias/assets/`, organize reference designs by type under `kallos/referencias/designs/` (e.g. `posters/`, `carruseles/{portada,internas,final}/`), and optionally add a free Pexels API key ([pexels.com/api](https://www.pexels.com/api/)) to `kallos/.env`, then ask again. Kallos never overwrites an existing `brief.md`. `kallos/.env` is auto-added to `.gitignore` so the key never gets committed.
 
 ## Regular use
 
