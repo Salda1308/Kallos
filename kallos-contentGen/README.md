@@ -54,6 +54,8 @@ Kallos reads `kallos/brief.md` and `kallos/referencias/`, plans the slides, and 
 
 If a reference design has a photo slot, Kallos fills it — your own images from `referencias/assets/img/` first, Pexels as a fallback. Pexels needs a free API key ([pexels.com/api](https://www.pexels.com/api/)) in `kallos/.env` (`PEXELS_API_KEY=...`), created empty on init and already gitignored. No key, no Pexels fallback — local images still work.
 
+Every image (logo included) is embedded as base64 directly in the SVG, not linked — a linked relative path broke in real-world testing (moved files, viewers that couldn't resolve it), so files are bigger but always display correctly wherever they're opened.
+
 ## Design principles
 
 - **The brief is the source of truth.** Colors and fonts come only from the brand `.md` — nothing invented.

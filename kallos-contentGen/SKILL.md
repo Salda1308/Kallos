@@ -51,7 +51,7 @@ kallos/
 - **Source order:** first look for a fitting image already in `referencias/assets/img/` (including `img/pexels/`). Only if nothing fits, search the Pexels API using a query derived from the piece's subject matter and what the reference's photo slot depicts (e.g. "abogado sonriendo", "reunión de negocios").
 - **Pexels API key:** read `PEXELS_API_KEY` from `kallos/.env`. If it's empty, stop and ask the user to fill it in — never call the API without it.
 - **Caching:** every photo fetched from Pexels gets saved into `referencias/assets/img/pexels/` so it's available locally next time.
-- **Embedding:** reference the image with `<image href="ruta/relativa/al/archivo.jpg">` inside the appropriate `<g>` layer — never inline as base64, it bloats the file and makes the SVG unreadable.
+- **Embedding:** base64-encode the image file (`base64 -i archivo.png`) and inline it as `xlink:href="data:image/png;base64,...."` (or `image/jpeg` as appropriate) inside the appropriate `<g>` layer. A linked relative path was tried and broke in practice — the file moved, or the viewer couldn't resolve it — so every image (logo included) is embedded, not linked. Yes, this makes each file heavier; that's the accepted trade-off for a file that always displays correctly wherever it's opened.
 - **Licensing:** Pexels photos are free for commercial use without required attribution, but never imply the person in the photo endorses the brand.
 
 ## Process
@@ -69,7 +69,7 @@ kallos/
 - All typography as `<text>` with real `font-family`/`font-weight` from the brief. Never convert text to `<path>` — it must stay selectable and editable with Illustrator's Type tool.
 - `viewBox="0 0 W H"` matching the chosen canvas size.
 - Colors and fonts strictly from the brief and references — no invented palette.
-- Photos as `<image href="...">` pointing at a relative file path — never base64, and never present unless the reference calls for one (see Photos in Designs).
+- Photos and logo as base64-embedded `<image xlink:href="data:image/...;base64,...">` — never a linked/relative file path — and never present unless the reference calls for one (see Photos in Designs).
 
 ## File Naming
 - Single piece: `kallos/output/nombre-descriptivo_YYYY-MM-DD.svg`.
@@ -84,5 +84,5 @@ Zero chatter. No long explanations or redundant confirmations — analyze, code,
 - Inventing colors/fonts not in the brief — breaks brand consistency.
 - Treating `.ai` reference files as directly readable — they're binary; ask for an export instead.
 - Adding a photo when the reference design has no photo slot — only replicate what the reference actually shows.
-- Embedding photos as base64 instead of a relative `<image href>` — bloats the file and hurts editability.
+- Linking an image with a relative `<image href>` instead of embedding it as base64 — this breaks in practice (moved files, viewers that can't resolve local paths); always embed.
 - Calling the Pexels API without checking `kallos/.env` first, or fetching a photo without caching it into `referencias/assets/img/pexels/`.
